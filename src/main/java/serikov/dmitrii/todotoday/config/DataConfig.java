@@ -29,7 +29,7 @@ public class DataConfig {
     JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
     entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
 
-    entityManagerFactory.setDataSource(getDataSource());
+    entityManagerFactory.setDataSource(dataSource());
 
     entityManagerFactory.setJpaProperties(getHibernateProperties());
 
@@ -37,7 +37,7 @@ public class DataConfig {
   }
 
   @Bean
-  public DataSource getDataSource() {
+  public DataSource dataSource() {
     BasicDataSource ds = new BasicDataSource();
 
     ds.setDriverClassName(env.getProperty("datasource.driver"));
