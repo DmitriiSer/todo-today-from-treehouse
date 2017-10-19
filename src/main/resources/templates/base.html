@@ -1,0 +1,12 @@
+<head th:fragment="head" th:with="title=${title}">
+    <div th:text="${title}"></div>
+    <title th:text="${title} ? #{|ToDo Today - ${title}|} : 'ToDo Today'">ToDo Today</title>
+</head>
+
+<nav th:fragment="nav">
+    Navigation
+</nav>
+
+<div th:fragment="footer">
+    &copy; 2016 Footer
+</div>
