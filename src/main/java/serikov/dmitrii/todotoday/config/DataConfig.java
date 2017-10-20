@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -14,6 +15,7 @@ import java.util.Properties;
 import javax.sql.DataSource;
 
 @Configuration
+@EnableJpaRepositories(basePackages = "serikov.dmitrii.todotoday.dao")
 @PropertySource("application.properties")
 public class DataConfig {
 
@@ -51,9 +53,9 @@ public class DataConfig {
   private Properties getHibernateProperties() {
     Properties properties = new Properties();
     properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
-//    properties.put("hibernate.implicit_naming_strategy",env.getProperty("hibernate.implicit_naming_strategy"));
-//    properties.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
-//    properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+    properties.put("hibernate.implicit_naming_strategy",env.getProperty("hibernate.implicit_naming_strategy"));
+    properties.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
+    properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
     properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
     return properties;
   }
