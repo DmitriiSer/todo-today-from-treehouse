@@ -1,12 +1,28 @@
-<head th:fragment="head" th:with="title=${title}">
-    <div th:text="${title}"></div>
-    <title th:text="${title} ? #{|ToDo Today - ${title}|} : 'ToDo Today'">ToDo Today</title>
-</head>
+<!DOCTYPE html>
+<html lang="en">
+    <head th:fragment="head" th:with="title=${title}">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<nav th:fragment="nav">
-    Navigation
-</nav>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <link rel="stylesheet" th:href="@{/css/styles.css}">
 
-<div th:fragment="footer">
-    &copy; 2016 Footer
-</div>
+        <title th:text="${title} ? #{|ToDo Today - ${title}|} : 'ToDo Today'">ToDo Today</title>
+    </head>
+
+    <body>
+        <header>
+            <nav th:fragment="nav" class="navbar navbar-dlight bg-warning">
+                <a class="navbar-brand" href="/">ToDo Today</a>
+            </nav>
+        </header>
+
+        <footer th:fragment="footer"
+                th:text="|&copy; ${#dates.year(#dates.createNow())} Footer|">
+        </footer>
+    </body>
+
+</html>
+
+
+
