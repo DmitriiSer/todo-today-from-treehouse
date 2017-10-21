@@ -1,10 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head th:replace="base::head" th:with="title='Login'">
-        <title>Login</title>
-    </head>
+    <head th:replace="base::head" th:with="title='Login'"></head>
     <body>
-        <main></main>
+        <main class="bg-gradient">
+            <div class="container">
+                <div class="row d-flex justify-content-center align-items-center" style="height: 100vh">
+                    <div class="col-sm-8">
+
+                    <div class="card border-warning z-depth-1 hoverable">
+                        <div class="card-body">
+                            <h4 class="card-title">Login</h4>
+
+                            <form action="/login" method="post">
+
+                                <div class="form-group row">
+                                    <label for="login-username"
+                                           class="col-sm-3 col-form-label">User name</label>
+                                    <div class="col-sm-9">
+                                        <input type="login-username" id="login-email"
+                                               class="form-control"
+                                               placeholder="Enter user name"
+                                               aria-describedby="login-username-help">
+                                        <small th:if="${flash}" id="login-username-help"
+                                               th:text="${flash.message}"
+                                               class="form-text text-muted bg-danger">Message</small>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="login-password"
+                                           class="col-sm-3 col-form-label">Password</label>
+                                    <div class="col-sm-9">
+                                        <input type="login-password" id="login-password"
+                                               class="form-control"
+                                               placeholder="Enter password"
+                                               aria-describedby="login-password-help">
+                                        <small th:if="${flash}" id="login-username-help"
+                                               th:text="${flash.message}"
+                                               class="form-text text-muted bg-danger">Message</small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group text-right">
+                                    <button type="submit" class="btn btn-warning">Submit</button>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
         <footer th:replace="base::footer"></footer>
     </body>
 </html>
