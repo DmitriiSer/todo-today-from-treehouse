@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import serikov.dmitrii.todotoday.service.UserService;
+import serikov.dmitrii.todotoday.web.FlashMessage;
 
 @Configuration
 @EnableWebSecurity
@@ -39,7 +40,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .formLogin().loginPage("/login").permitAll()
         .successHandler(loginSuccessHandler())
-        .failureHandler(loginFailureHandler());
+        .failureHandler(loginFailureHandler())
+        .and()
+        .logout().permitAll().logoutSuccessUrl("/login");
   }
 
   private AuthenticationSuccessHandler loginSuccessHandler() {
@@ -47,7 +50,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   private AuthenticationFailureHandler loginFailureHandler() {
-    return (request, response, authentication) -> response.sendRedirect("/login");
+    return (request, response, authentication) -> {
+      request.getSession().setAttribute("flash",
+          new FlashMessage("Incorrect username or password. Please try again.",
+              FlashMessage.Status.FAILURE));
+      response.sendRedirect("/login");
+    };
   }
 
 }
