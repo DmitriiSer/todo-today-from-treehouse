@@ -17,6 +17,15 @@
             </nav>
         </header>
 
+        <main>
+            <div th:fragment="flash"
+                 th:with="flash=${flash}">
+                <span th:if="${flash != null}" th:text="${flash.message}"
+                      class="text-danger font-weight-bold rounded"
+                      style="padding: 3px"></span>
+            </div>
+        </main>
+
         <footer th:fragment="footer"
                 th:text="|&copy; ${#dates.year(#dates.createNow())} Footer|">
         </footer>
