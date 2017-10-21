@@ -9,4 +9,4 @@ insert into user (username, password, enabled, role_id) values ('user2', 'passwo
 insert into task (complete, description) values (true, 'My initial task');
 insert into task (complete, description) values (false, 'Buy groceries');
 insert into task (complete, description) values (false, 'Learn Spring Framework');
-insert into task (complete, description) values (false, 'Feed the dog');
+insert into task (complete, description) values (true, 'Feed the dog');
