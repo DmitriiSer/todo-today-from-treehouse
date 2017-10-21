@@ -38,6 +38,14 @@ public class User implements UserDetails {
   @JoinColumn(name = "role_id")
   private Role role;
 
+  public User() {
+  }
+
+  public User(@Size(min = 8, max = 20) String username, String password) {
+    this.username = username;
+    this.password = password;
+  }
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     List<GrantedAuthority> authorities = new ArrayList<>();
