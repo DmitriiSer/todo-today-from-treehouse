@@ -2,6 +2,7 @@ package serikov.dmitrii.todotoday.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
@@ -24,6 +25,7 @@ public class TemplateConfig {
   public SpringTemplateEngine templateEngine() {
     final SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
     springTemplateEngine.addTemplateResolver(templateResolver());
+    springTemplateEngine.addDialect(new SpringSecurityDialect());
     return springTemplateEngine;
   }
 
