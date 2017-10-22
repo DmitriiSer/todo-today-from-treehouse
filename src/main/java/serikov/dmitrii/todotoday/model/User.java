@@ -83,8 +83,4 @@ public class User implements UserDetails {
     return enabled;
   }
 
-  @Override
-  public String getName() {
-    return null;
-  }
 }

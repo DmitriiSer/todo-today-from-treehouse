@@ -19,6 +19,10 @@
 
                 <form th:action="@{/logout}" method="post"
                         class="form-inline">
+
+                    <div sec:authentication="name"
+                        class="mr-sm-2"></div>
+
                     <button class="btn btn-dark my-2 my-sm-0"
                             type="submit">
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
