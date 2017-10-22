@@ -6,7 +6,7 @@ insert into user (username, password, enabled, role_id) values ('user', 'passwor
 insert into user (username, password, enabled, role_id) values ('user2', 'password', true, 1);
 
 -- Insert tasks
-insert into task (complete, description) values (true, 'My initial task');
-insert into task (complete, description) values (false, 'Buy groceries');
-insert into task (complete, description) values (false, 'Learn Spring Framework');
-insert into task (complete, description) values (true, 'Feed the dog');
+insert into task (complete, description, user_id) values (true, 'My initial task', 1);
+insert into task (complete, description, user_id) values (false, 'Buy groceries', 2);
+insert into task (complete, description, user_id) values (false, 'Learn Spring Framework', 1);
+insert into task (complete, description, user_id) values (true, 'Feed the dog', 2);
