@@ -1,15 +1,23 @@
 package serikov.dmitrii.todotoday.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.repository.query.spi.EvaluationContextExtension;
+import org.springframework.data.repository.query.spi.EvaluationContextExtensionSupport;
+import org.springframework.data.repository.query.spi.Function;
+import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import java.util.Map;
 import serikov.dmitrii.todotoday.model.User;
 import serikov.dmitrii.todotoday.service.UserService;
 import serikov.dmitrii.todotoday.web.FlashMessage;
@@ -61,6 +69,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           new FlashMessage("Incorrect username or password. Please try again.",
               FlashMessage.Status.FAILURE));
       response.sendRedirect("/login");
+    };
+  }
+
+  @Bean
+  public EvaluationContextExtension securityExtension() {
+    return new EvaluationContextExtensionSupport() {
+      @Override
+      public String getExtensionId() {
+        return "security";
+      }
+
+      @Override
+      public Object getRootObject() {
+        Authentication authentication = SecurityContextHolder
+            .getContext()
+            .getAuthentication();
+        return new SecurityExpressionRoot(authentication) {
+        };
+      }
+
     };
   }
 
