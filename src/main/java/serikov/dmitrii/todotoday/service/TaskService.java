@@ -5,4 +5,5 @@ import serikov.dmitrii.todotoday.model.Task;
 
 public interface TaskService {
   List<Task> findAll();
+  void save(Task task);
 }
