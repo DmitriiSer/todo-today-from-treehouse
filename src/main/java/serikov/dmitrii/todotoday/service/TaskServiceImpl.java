@@ -21,4 +21,9 @@ public class TaskServiceImpl implements TaskService {
     iterable.forEach(tasks::add);
     return tasks;
   }
+
+  @Override
+  public void save(Task task) {
+    taskDao.save(task);
+  }
 }

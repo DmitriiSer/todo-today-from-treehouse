@@ -23,6 +23,20 @@
                     </a>
                 </div>
 
+                <!-- Add new task form -->
+                <form th:action="@{/tasks}" method="post"
+                      th:object="${newTask}">
+                    <div class="input-group my-3">
+                    <span class="input-group-addon p-3" id="add-task-plus-icon-addon">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </span>
+
+                    <input th:field="*{description}" class="form-control p-3"
+                           placeholder="New task"
+                           aria-label="New task"
+                           aria-describedby="add-task-plus-icon-addon">
+                    </div>
+                </form>
             </div>
         </main>
 
