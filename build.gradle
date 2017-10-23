@@ -33,6 +33,7 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-security:1.5.7.RELEASE'
     compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.2.RELEASE'
+    compile 'com.google.guava:guava:23.0'
 
     compile 'org.hibernate:hibernate-entitymanager:5.2.11.Final'
     compile 'org.apache.tomcat:tomcat-dbcp:9.0.1'
