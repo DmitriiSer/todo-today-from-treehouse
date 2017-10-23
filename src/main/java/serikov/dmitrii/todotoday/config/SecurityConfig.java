@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.repository.query.spi.EvaluationContextExtension;
 import org.springframework.data.repository.query.spi.EvaluationContextExtensionSupport;
-import org.springframework.data.repository.query.spi.Function;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,8 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import java.util.Map;
 import serikov.dmitrii.todotoday.model.User;
+import serikov.dmitrii.todotoday.model.UserBlockedException;
+import serikov.dmitrii.todotoday.service.LoginAttemptService;
 import serikov.dmitrii.todotoday.service.UserService;
 import serikov.dmitrii.todotoday.web.FlashMessage;
 
@@ -30,6 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   private UserService userService;
+
+  @Autowired
+  private LoginAttemptService loginAttemptService;
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -64,19 +67,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 
   private AuthenticationSuccessHandler loginSuccessHandler() {
-    return (request, response, authentication) -> response.sendRedirect("/");
+    return (request, response, authentication) -> {
+      loginAttemptService.loginSucceeded();
+
+      response.sendRedirect("/");
+    };
   }
 
   private AuthenticationFailureHandler loginFailureHandler() {
-    return (request, response, authentication) -> {
+    return (request, response, authenticationException) -> {
+      loginAttemptService.loginFailed();
+
       // preserve existing user data
       request.getSession().setAttribute("user",
           new User(request.getParameter("username"),
               request.getParameter("password")));
+
       // set the failure message
+      String message;
+      if (loginAttemptService.isBlocked()) {
+        message = "User is blocked. Try again in 24 hours.";
+      } else {
+        if (authenticationException.getCause() instanceof UserBlockedException) {
+          message = "User is blocked. Try again in 24 hours.";
+        } else {
+          message =
+              String.format("Incorrect username or password. Please try again. Attempts left: %s",
+                  loginAttemptService.getAttemptsLeft());
+        }
+      }
+
       request.getSession().setAttribute("flash",
-          new FlashMessage("Incorrect username or password. Please try again.",
-              FlashMessage.Status.FAILURE));
+          new FlashMessage(message, FlashMessage.Status.FAILURE));
       response.sendRedirect("/login");
     };
   }
