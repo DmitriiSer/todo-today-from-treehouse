@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import serikov.dmitrii.todotoday.model.Task;
 import serikov.dmitrii.todotoday.model.User;
 import serikov.dmitrii.todotoday.service.TaskService;
@@ -37,7 +39,7 @@ public class TaskController {
 
     UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) principal;
 
-    User user = (User)token.getPrincipal();
+    User user = (User) token.getPrincipal();
 
     task.setUser(user);
 
@@ -45,4 +47,15 @@ public class TaskController {
     return "redirect:/";
   }
 
+  @RequestMapping(path = "/toggleTask", method = RequestMethod.POST)
+  public String toggleTask(@RequestParam Long id) {
+
+    Optional<Task> task = taskService.findById(id);
+
+    if (task.isPresent()) {
+      taskService.toggleComplete(task.get());
+    }
+
+    return "redirect:/";
+  }
 }

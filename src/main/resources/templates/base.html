@@ -15,7 +15,8 @@
     <body>
         <header>
             <nav th:fragment="nav" class="navbar navbar-dlight bg-warning">
-                <a class="navbar-brand" href="/">ToDo Today</a>
+                <a class="navbar-brand font-weight-bold text-dark"
+                   href="/">ToDo Today</a>
 
                 <form th:action="@{/logout}" method="post"
                         class="form-inline">
@@ -23,7 +24,7 @@
                     <h4 sec:authentication="name"
                         class="mr-sm-2 mt-1"></h4>
 
-                    <button class="btn btn-dark my-2 my-sm-0"
+                    <button class="btn btn-outline-dark my-2 my-sm-0"
                             type="submit">
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
                     </button>
@@ -44,6 +45,10 @@
         <footer th:fragment="footer"
                 th:text="|&copy; ${#dates.year(#dates.createNow())} Footer|">
         </footer>
+
+        <div th:fragment="scripts">
+            <script type="text/javascript" th:src="@{/js/app.js}"></script>
+        </div>
     </body>
 
 </html>
