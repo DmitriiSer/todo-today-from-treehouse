@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import serikov.dmitrii.todotoday.dao.TaskDao;
 import serikov.dmitrii.todotoday.model.Task;
 
@@ -24,6 +25,17 @@ public class TaskServiceImpl implements TaskService {
 
   @Override
   public void save(Task task) {
+    taskDao.save(task);
+  }
+
+  @Override
+  public Optional<Task> findById(Long id) {
+    return taskDao.findById(id);
+  }
+
+  @Override
+  public void toggleComplete(Task task) {
+    task.setComplete(!task.isComplete());
     taskDao.save(task);
   }
 }
