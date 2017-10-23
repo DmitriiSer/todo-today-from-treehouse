@@ -11,15 +11,22 @@
 
                 <div class="list-group">
                     <a th:each="task : ${tasks}"
-                        class="list-group-item list-group-item-action"
-                        style="cursor: pointer">
-                            <label class="custom-control custom-checkbox w-100 m-2">
-                                <input type="checkbox" class="custom-control-input"
-                                       th:checked="${task.complete}">
-                                <span class="custom-control-indicator"></span>
-                                <span th:text="${task.description}"
-                                      class="custom-control-description">-</span>
-                            </label>
+                        class="list-group-item list-group-item-action">
+                            <!-- Toggle task form -->
+                            <form th:action="@{/toggleTask}" method="post"
+                                  style="cursor: pointer">
+                                <input type="hidden" name="id" th:value="${task.id}" />
+                                <label class="custom-control custom-checkbox w-100 m-2"
+                                       th:th:classappend="${task.complete} ? text-muted : null">
+                                    <input type="checkbox" class="custom-control-input"
+                                           th:checked="${task.complete}">
+                                    <span class="custom-control-indicator"></span>
+                                    <del th:remove="${task.complete} ? none : tag">
+                                        <span th:text="${task.description}"
+                                              class="custom-control-description">-</span>
+                                    </del>
+                                </label>
+                            </form>
                     </a>
                 </div>
 
@@ -41,5 +48,7 @@
         </main>
 
         <footer th:replace="base::footer"></footer>
+
+        <div th:replace="base::scripts"></div>
     </body>
 </html>
