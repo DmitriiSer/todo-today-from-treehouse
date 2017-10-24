@@ -1,7 +1,7 @@
 # todo-today-from-treehouse
 
 This project is an implementation from scratch for the Treehouse TodoToday app.
-It's built using **Spring Boot**, **Spring MVC**, **Spring Security**, **Spring Data JPA**, **Hibernate** and **Bootstrap 4**.
+It's built using **Java 8**, **Spring Boot**, **Spring MVC**, **Spring Security**, **Spring Data JPA**, **Hibernate** and **Bootstrap 4**.
 
 ## [Demo](https://heroku-todo-today.herokuapp.com) deployed on Heroku Platform as a Service (PaaS)
 **Note:** *There are 2 predefined users in the database to test the application:*
